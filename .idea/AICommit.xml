@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="com.github.blarc.ai.commits.intellij.plugin.settings.ProjectSettings" isProjectSpecificPrompt="true">
+    <option name="projectSpecificPrompt" value="true" />
+    <option name="activePrompt">
+      <Prompt>
+        <option name="content" value="Avoid overly verbose descriptions or unnecessary details.&#10;Start with a short sentence in imperative form, no more than 50 characters long.&#10;Then leave an empty line and continue with a more detailed explanation.&#10;Write only one sentence for the first part, and two or three sentences at most for the detailed explanation.&#10;&#10;Choose a suitable GitMoji emojis (e.g., ✨ → feat) from (smile/love/gear/construction/broom/worm/hammer/document)(use emoji unicode instead if these descpition), as the beginning, then expand the following module name in parentheses, followed by a colon, followed by a short descriptive text, beginning in lowercase. After writing the title, leave an empty line and describe the details.&#10;&#10;If add new feature, suguested using love/smile and some positive emojis.&#10;&#10;[XXX] means type, output without []&#10;[Emoji]: some emojis mentiond before, it has some meanings from gitmoji.&#10;[Modulename]: means the minimum collection of the changes name. such as `tests`, specific module name&#10;&#10;&#10;[Emoji]([Modulename]): [short title]&#10;&#10;[details]&#10;&#10;---&#10;&#10;{diff}" />
+        <option name="description" value="GanttA" />
+        <option name="name" value="GanttA" />
+      </Prompt>
+    </option>
+    <option name="locale" value="und" />
+  </component>
+</project>
