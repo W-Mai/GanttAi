@@ -1,0 +1,6 @@
+# 服务器配置
+server_host = "127.0.0.1"
+server_port = 3000
+
+# 数据库配置
+database_url = "postgres://postgres:postgres@localhost/gantt_ai" 

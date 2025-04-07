@@ -1,26 +1,47 @@
-use axum::{routing::get, Router};
-use tracing::info;
-use tracing_subscriber::{self, EnvFilter};
+use std::net::{SocketAddr, IpAddr};
+use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
+use utils::Settings;
+
+mod api;
+mod core;
+mod db;
+mod models;
+mod services;
+mod utils;
 
 #[tokio::main]
 async fn main() {
     // 初始化日志
-    tracing_subscriber::fmt()
-        .with_env_filter(EnvFilter::from_default_env().add_directive(tracing::Level::INFO.into()))
+    tracing_subscriber::registry()
+        .with(tracing_subscriber::EnvFilter::new(
+            std::env::var("RUST_LOG").unwrap_or_else(|_| "info".into()),
+        ))
+        .with(tracing_subscriber::fmt::layer())
         .init();
 
+    // 加载配置
+    let settings = Settings::new().expect("Failed to load settings");
+
+    // 初始化数据库连接池
+    let pool = db::create_pool(&settings.database_url).await;
+
     // 构建应用路由
-    let app = Router::new().route("/", get(hello_world));
+    let app = api::routes::create_routes()
+        .layer(tower_http::trace::TraceLayer::new_for_http())
+        .with_state(pool);
 
-    // 运行服务器
-    let listener = tokio::net::TcpListener::bind("127.0.0.1:3000")
-        .await
-        .unwrap();
-    info!("Server running on http://127.0.0.1:3000");
+    // 启动服务器
+    let addr = SocketAddr::from((
+        settings.server_host.parse::<IpAddr>().unwrap(),
+        settings.server_port,
+    ));
+    tracing::info!("Server listening on {}", addr);
+    tracing::info!("API documentation available at /swagger-ui");
 
-    axum::serve(listener, app).await.unwrap();
-}
-
-async fn hello_world() -> &'static str {
-    "Hello, World!"
+    axum::serve(
+        tokio::net::TcpListener::bind(&addr).await.unwrap(),
+        app,
+    )
+    .await
+    .unwrap();
 }

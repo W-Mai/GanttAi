@@ -4,8 +4,47 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-axum = "0.8.1"
-diesel = { version = "2.2.8", features = ["postgres", "r2d2"] }
-tokio = { version = "1.44.1", features = ["full"] }
-tracing = "0.1.41"
-tracing-subscriber = { version = "0.3.19", features = ["env-filter"] }
+# Web 框架
+axum = { version = "0.7", features = ["macros"] }
+tower = "0.4"
+tower-http = { version = "0.5", features = ["cors", "trace"] }
+tokio = { version = "1.0", features = ["full"] }
+
+# 数据库
+diesel = { version = "2.1", features = ["postgres", "chrono", "serde_json", "uuid"] }
+diesel-async = { version = "0.4", features = ["postgres", "bb8"] }
+bb8 = "0.8"
+
+# 序列化
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# 错误处理
+thiserror = "1.0"
+anyhow = "1.0"
+
+# 日志
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# 配置
+config = "0.13"
+
+# 时间处理
+chrono = { version = "0.4", features = ["serde"] }
+
+# UUID
+uuid = { version = "1.0", features = ["serde", "v4"] }
+
+# HTTP
+http-body = "1.0"
+http-body-util = "0.1"
+hyper = { version = "1.0", features = ["full"] }
+
+# API 文档
+utoipa = { version = "4.2", features = ["axum_extras"] }
+utoipa-swagger-ui = { version = "6.0", features = ["axum"] }
+
+[dev-dependencies]
+tokio-test = "0.4"
+pretty_assertions = "1.0"
