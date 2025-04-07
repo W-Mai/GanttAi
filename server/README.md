@@ -27,21 +27,25 @@ src/
 ## 主要功能模块
 
 ### API 层
+
 - RESTful API 接口
 - 请求验证和错误处理
 - API 文档自动生成
 
 ### 数据层
+
 - PostgreSQL 数据库集成
 - 异步数据库操作
 - 数据模型定义和迁移
 
 ### 业务逻辑
+
 - 甘特图项目管理
 - 任务调度和依赖管理
 - 用户认证和授权
 
 ### 基础设施
+
 - 配置管理（环境变量、配置文件）
 - 日志系统
 - 错误处理
@@ -50,11 +54,30 @@ src/
 ## 开发指南
 
 ### 环境要求
+
 - Rust 2021 edition
 - PostgreSQL 数据库
 - 环境变量配置（参考 .env 文件）
 
 ### 运行项目
+
+#### 安装 postgresql 数据库
+
+Ubuntu:
+
+```bash
+sudo apt-get update
+sudo apt-get install postgresql
+```
+
+macOS:
+
+```bash
+brew install postgresql
+```
+
+#### 构建并运行项目：
+
 ```bash
 # 安装依赖
 cargo build
@@ -67,6 +90,7 @@ cargo test
 ```
 
 ### 数据库迁移
+
 ```bash
 # 创建迁移
 diesel migration generate <migration_name>
@@ -85,6 +109,7 @@ diesel migration revert
 ## 日志系统
 
 使用 tracing 进行日志记录，支持不同级别的日志输出：
+
 - ERROR: 错误信息
 - WARN: 警告信息
 - INFO: 一般信息
@@ -94,6 +119,7 @@ diesel migration revert
 ## 配置管理
 
 项目使用 `.env` 文件进行环境配置，主要配置项包括：
+
 - 数据库连接信息
 - 服务器端口
 - 日志级别
